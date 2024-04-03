@@ -107,9 +107,11 @@ const corresponding = {
 
 let setupMode = false;
 
-
 export function Avatar(props) {
-  const { nodes, materials, scene } = useGLTF("/models/65a6c1038d5515a608389f93.glb");
+  //this is the model that can be changed , it is a blender model from what i know
+  const { nodes, materials, scene } = useGLTF(
+    "/models/65a6c1038d5515a608389f93.glb"
+  );
 
   const { message, onMessagePlayed, chat } = useChat();
 
@@ -305,7 +307,6 @@ export function Avatar(props) {
     nextBlink();
     return () => clearTimeout(blinkTimeout);
   }, []);
-
 
   return (
     <group {...props} dispose={null} ref={group}>
