@@ -3,16 +3,17 @@ import { Canvas } from "@react-three/fiber";
 import { Leva } from "leva";
 import { Experience } from "./components/Experience";
 import { UI } from "./components/UI";
+import { CameraHelper } from "three";
 // import TextToSpeechConverter from './components/TextToSpeechConverter';
 
 function App() {
   return (
     <>
       <Loader />
-      <Leva hidden/>
+      <Leva hidden />
       <UI />
       {/* <TextToSpeechConverter/> */}
-      <Canvas shadows camera={{ position: [0, 0, 1], fov: 30 }}>
+      <Canvas shadows camera={{ fov: 30}}>
         <Experience />
       </Canvas>
     </>

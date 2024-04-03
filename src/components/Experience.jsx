@@ -42,14 +42,16 @@ export const Experience = () => {
   const { cameraZoomed } = useChat();
 
   useEffect(() => {
-    cameraControls.current.setLookAt(0, 2, 5, 0, 1.5, 0);
+    cameraControls.current.setLookAt(0, 2, 5, 0, 1.5, 1);
   }, []);
 
   useEffect(() => {
     if (cameraZoomed) {
-      cameraControls.current.setLookAt(0, 1.5, 1.5, 0, 1.5, 0, true);
+      cameraControls.current.setLookAt(0, 0.65, 0.6, 0, 0.6, 0, true);
+      console.log(cameraControls.current);
     } else {
-      cameraControls.current.setLookAt(0, 2.2, 5, 0, 1.0, 0, true);
+      cameraControls.current.setLookAt(0, 0.55, 1.4, 0, 0.4, 0, true);
+      // rotateY , rotateX , zoomOut and rotateZ??
     }
   }, [cameraZoomed]);
   return (
