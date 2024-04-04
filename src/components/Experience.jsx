@@ -47,17 +47,17 @@ export const Experience = () => {
 
   useEffect(() => {
     if (cameraZoomed) {
-      cameraControls.current.setLookAt(0, 0.65, 0.6, 0, 0.6, 0, true);
+      cameraControls.current.setLookAt(0, -0.7, 0.62, 0, 6.4, 0, true);
       console.log(cameraControls.current);
     } else {
-      cameraControls.current.setLookAt(0, 0.55, 1.4, 0, 0.4, 0, true);
+      cameraControls.current.setLookAt(0, -1.5, 0.5, 0, 6.4, 0, true);
       // rotateY , rotateX , zoomOut and rotateZ??
     }
   }, [cameraZoomed]);
   return (
     <>
       <CameraControls ref={cameraControls} />
-      <Environment preset="city" />
+      <Environment preset="apartment" />
       {/* Wrapping Dots into Suspense to prevent Blink when Troika/Font is loaded */}
       {/* <Suspense>
         <Dots position-y={1.75} position-x={-0.02} />
