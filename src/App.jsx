@@ -12,7 +12,7 @@ function App() {
       <Leva hidden/>
       <UI />
       {/* <TextToSpeechConverter/> */}
-      <Canvas shadows camera={{ position: [0, 0, 1], fov: 30 }}>
+      <Canvas shadows camera={{ fov: 30 }}>
         <Experience />
       </Canvas>
     </>
