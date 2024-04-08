@@ -110,7 +110,7 @@ let setupMode = false;
 export function Avatar(props) {
   //this is the model that can be changed , it is a blender model from what i know
   const { nodes, materials, scene } = useGLTF(
-    "/models/halo_infinite_master_chief_1k.glb"
+    "/models/cyberpunk_character_4k.glb"
   );
 
   const { message, onMessagePlayed, chat } = useChat();
@@ -139,7 +139,7 @@ export function Avatar(props) {
     animations.find((a) => a.name === "Idle") ? "Idle" : animations[0].name // Check if Idle animation exists otherwise use first animation
   );
 
-  console.log(actions.Idle);
+  // console.log(actions.Idle);
   // useEffect(() => {
   //   actions[animation]
   //     .reset()
@@ -181,7 +181,8 @@ export function Avatar(props) {
   const [facialExpression, setFacialExpression] = useState("");
   const [audio, setAudio] = useState();
 
-  useFrame(() => {
+  useFrame((state,delta) => {
+    // group.current.rotation.z += 0000*delta;
     // !setupMode &&
     //   Object.keys(nodes.EyeLeft.morphTargetDictionary).forEach((key) => {
     //     const mapping = facialExpressions[facialExpression];
@@ -266,7 +267,7 @@ export function Avatar(props) {
       //     emotionValues[key] = value;
       //   }
       // });
-      console.log(JSON.stringify(emotionValues, null, 2));
+      // console.log(JSON.stringify(emotionValues, null, 2));
     }),
   });
 
@@ -309,34 +310,87 @@ export function Avatar(props) {
   }, []);
 
   return (
-    <group {...props} dispose={null}>
-      <group scale={0.01}>
-        <group rotation={[-Math.PI / 2, 0, 0]} scale={100}>
-          <primitive object={nodes._rootJoint} />
-          <skinnedMesh
-            geometry={nodes.Object_93.geometry}
-            material={materials["Helmet.002"]}
-            skeleton={nodes.Object_93.skeleton}
-          />
-          <skinnedMesh
-            geometry={nodes.Object_94.geometry}
-            material={materials["Legs.002"]}
-            skeleton={nodes.Object_94.skeleton}
-          />
-          <skinnedMesh
-            geometry={nodes.Object_95.geometry}
-            material={materials["Chest.002"]}
-            skeleton={nodes.Object_95.skeleton}
-          />
-          <skinnedMesh
-            geometry={nodes.Object_96.geometry}
-            material={materials["Arms.002"]}
-            skeleton={nodes.Object_96.skeleton}
-          />
+    <group ref={group} {...props} dispose={null}>
+      <group name="Sketchfab_Scene">
+        <group
+          name="Sketchfab_model"
+          rotation={[-Math.PI / 2, 0, -2*Math.PI]}
+          scale={0.017}
+        >
+          <group
+            name="40f67baeb71f43f29a3629d1d574a7adfbx"
+            rotation={[Math.PI / 2, 0, 0]}
+          >
+            <group name="Object_2">
+              <group name="RootNode">
+                <group name="Armature" rotation={[-Math.PI / 2, 0, 0]}>
+                  <group name="Object_5">
+                    <primitive object={nodes._rootJoint} />
+                    <skinnedMesh
+                      name="Object_68"
+                      geometry={nodes.Object_68.geometry}
+                      material={materials.material}
+                      skeleton={nodes.Object_68.skeleton}
+                    />
+                    <skinnedMesh
+                      name="Object_70"
+                      geometry={nodes.Object_70.geometry}
+                      material={materials.material_3}
+                      skeleton={nodes.Object_70.skeleton}
+                    />
+                    <skinnedMesh
+                      name="Object_72"
+                      geometry={nodes.Object_72.geometry}
+                      material={materials.material_3}
+                      skeleton={nodes.Object_72.skeleton}
+                    />
+                    <skinnedMesh
+                      name="Object_74"
+                      geometry={nodes.Object_74.geometry}
+                      material={materials.material}
+                      skeleton={nodes.Object_74.skeleton}
+                    />
+                    <skinnedMesh
+                      name="Object_76"
+                      geometry={nodes.Object_76.geometry}
+                      material={materials.material}
+                      skeleton={nodes.Object_76.skeleton}
+                    />
+                    <skinnedMesh
+                      name="Object_78"
+                      geometry={nodes.Object_78.geometry}
+                      material={materials.material_3}
+                      skeleton={nodes.Object_78.skeleton}
+                    />
+                    <group name="Object_67" rotation={[-Math.PI / 2, 0, 0]} />
+                    <group name="Object_69" rotation={[-Math.PI / 2, 0, 0]} />
+                    <group name="Object_71" rotation={[-Math.PI / 2, 0, 0]} />
+                    <group
+                      name="Object_73"
+                      position={[0, -0.099, 0]}
+                      rotation={[-Math.PI / 2, 0, 0]}
+                    />
+                    <group name="Object_75" rotation={[-Math.PI / 2, 0, 0]} />
+                    <group name="Object_77" rotation={[-Math.PI / 2, 0, 0]} />
+                  </group>
+                </group>
+                <group name="CPD_Arm" rotation={[-Math.PI / 2, 0, 0]} />
+                <group name="CPD_Body" rotation={[-Math.PI / 2, 0, 0]} />
+                <group name="CPD_Mask" rotation={[-Math.PI / 2, 0, 0]} />
+                <group
+                  name="CPD_Hood"
+                  position={[0, -0.099, 0]}
+                  rotation={[-Math.PI / 2, 0, 0]}
+                />
+                <group name="CPD_Hat" rotation={[-Math.PI / 2, 0, 0]} />
+                <group name="CPD_Head" rotation={[-Math.PI / 2, 0, 0]} />
+              </group>
+            </group>
+          </group>
         </group>
       </group>
     </group>
   );
 }
 
-useGLTF.preload("/models/halo_infinite_master_chief_1k.glb");
+useGLTF.preload("/models/cyberpunk_character_4k.glb");
