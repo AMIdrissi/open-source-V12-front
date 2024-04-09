@@ -15,7 +15,8 @@ function App() {
       <UI />
       {/* <TextToSpeechConverter/> */}
       <Canvas shadows camera={{ fov: 30}} >
-        <Card position={[0,0,-5]} rotation={[Math.PI,0,0]}/>
+        {/* <Card position={[0,0,-5]} rotation={[Math.PI,0,0]}/> */}
+        <Experience/>
       </Canvas>
     </>
   );

@@ -60,7 +60,7 @@ export const Experience = () => {
   const [col, setCol] = useState(false);
   const ref = useRef();
   useFrame((state , delta) => {
-    ref.current.rotation.y += 5*delta; 
+    // ref.current.rotation.y += 5*delta; 
   })
   return (
     <>
@@ -75,7 +75,7 @@ export const Experience = () => {
       <spotLight position={[1, 5, 3]} intensity={1} color={0xfff7d6} />
       <mesh
       ref={ref}
-        position={[1.2, 2, 0]}
+        position={[10.2, 2, 0]}
         onClick={(e) => {setCol(!col)}}
         // onContextMenu={(e) => console.log("context menu")}
         // onDoubleClick={(e) => console.log("double click")}
