@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 export const UI = ({ hidden, ...props }) => {
   const input = useRef();
   const videoRef = useRef();
+  const videoRef2 = useRef();
   const { chat, loading, cameraZoomed, setCameraZoomed, message } = useChat();
 
   const sendMessage = () => {
@@ -21,6 +22,11 @@ export const UI = ({ hidden, ...props }) => {
     videoRef.current.play();
   }, []);
 
+  useEffect(() => {
+    videoRef2.current.load();
+    videoRef2.current.play();
+  }, [cameraZoomed]);
+
   if (hidden) {
     return null;
   }
@@ -30,16 +36,27 @@ export const UI = ({ hidden, ...props }) => {
       <div className="fixed top-0 left-0 right-0 bottom-0 z-0 pointer-events-none">
         <video
           ref={videoRef}
-          className="absolute top-0 left-0 object-cover w-full h-full , opacity-[0.87]"
+          className={`absolute top-0 left-0 object-cover w-full h-full , opacity-[1] ${
+            cameraZoomed ? "hidden" : "block"
+          }`}
           src="src/assets/vecteezy_a-video-that-expresses-the-concept-of-digital-with-computer_14268937.mov" // Replace with the path to your video file
           muted
           loop
           autoPlay
         />
+        <video
+          ref={videoRef2}
+          className={`absolute top-0 left-0 object-cover w-full h-full , opacity-[1] ${
+            cameraZoomed ? "block" : "hidden"
+          }`}
+          src="src/assets/vid1.mp4" // Replace with the path to your video file
+          muted
+          loop
+        />
       </div>
       <div className="fixed top-0 left-0 right-0 bottom-0 z-10 pointer-events-none flex justify-between p-4 flex-col">
         <div className="self-start backdrop-blur-md bg-white bg-opacity-50 p-4 rounded-lg">
-          <h1 className="font-black text-xl">Open Source Days ChatBot</h1>
+          <h1 className="font-black text-5xl ">OScar</h1>
           {/* <p>Experimental</p> */}
         </div>
         <div className="w-full flex flex-col items-end justify-center gap-4">
@@ -107,8 +124,8 @@ export const UI = ({ hidden, ...props }) => {
         </div>
         <div className="flex items-center gap-2 pointer-events-auto max-w-screen-sm w-full mx-auto">
           <input
-            className="w-full placeholder:text-gray-800 placeholder:italic p-4 rounded-md bg-opacity-50 bg-white backdrop-blur-md"
-            placeholder="Type a message..."
+            className="w-full placeholder:text-gray-800 placeholder:italic p-4 rounded-md bg-opacity-0 border-0  bg-white backdrop-blur-md"
+            // placeholder="Type a message..."
             ref={input}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -116,15 +133,6 @@ export const UI = ({ hidden, ...props }) => {
               }
             }}
           />
-          <button
-            disabled={loading || message}
-            onClick={sendMessage}
-            className={`bg-amber-500 hover:bg-amber-600 text-white p-4 px-10 font-semibold uppercase rounded-md ${
-              loading || message ? "cursor-not-allowed opacity-30" : ""
-            }`}
-          >
-            Send
-          </button>
         </div>
       </div>
     </>

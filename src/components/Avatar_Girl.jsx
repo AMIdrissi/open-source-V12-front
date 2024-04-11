@@ -10,6 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import * as THREE from "three";
 import { useChat } from "../hooks/useChat";
+cameraControls.current.setLookAt(0, 1.5, 1.5, 0, 1.5, 0, true);
 
 const facialExpressions = {
   default: {},
