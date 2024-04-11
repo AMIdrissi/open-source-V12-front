@@ -1,8 +1,9 @@
-import { useRef } from "react";
 import { useChat } from "../hooks/useChat";
+import { useRef, useEffect } from "react";
 
 export const UI = ({ hidden, ...props }) => {
   const input = useRef();
+  const videoRef = useRef();
   const { chat, loading, cameraZoomed, setCameraZoomed, message } = useChat();
 
   const sendMessage = () => {
@@ -12,13 +13,31 @@ export const UI = ({ hidden, ...props }) => {
       input.current.value = "";
     }
   };
+
+  // Ensure video starts playing when the component mounts
+  useEffect(() => {
+    videoRef.current.load();
+    videoRef.current.defaultPlaybackRate = 0.9;
+    videoRef.current.play();
+  }, []);
+
   if (hidden) {
     return null;
   }
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 bottom-0 z-10 flex justify-between p-4 flex-col pointer-events-none">
+      <div className="fixed top-0 left-0 right-0 bottom-0 z-0 pointer-events-none">
+        <video
+          ref={videoRef}
+          className="absolute top-0 left-0 object-cover w-full h-full , opacity-[0.87]"
+          src="src/assets/vecteezy_a-video-that-expresses-the-concept-of-digital-with-computer_14268937.mov" // Replace with the path to your video file
+          muted
+          loop
+          autoPlay
+        />
+      </div>
+      <div className="fixed top-0 left-0 right-0 bottom-0 z-10 pointer-events-none flex justify-between p-4 flex-col">
         <div className="self-start backdrop-blur-md bg-white bg-opacity-50 p-4 rounded-lg">
           <h1 className="font-black text-xl">Open Source Days ChatBot</h1>
           {/* <p>Experimental</p> */}
@@ -98,7 +117,7 @@ export const UI = ({ hidden, ...props }) => {
             }}
           />
           <button
-            disabled={loading|| message}
+            disabled={loading || message}
             onClick={sendMessage}
             className={`bg-amber-500 hover:bg-amber-600 text-white p-4 px-10 font-semibold uppercase rounded-md ${
               loading || message ? "cursor-not-allowed opacity-30" : ""

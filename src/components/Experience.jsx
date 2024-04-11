@@ -55,7 +55,7 @@ export const Experience = () => {
   return (
     <>
       <CameraControls ref={cameraControls} />
-      <Environment preset="city" />
+      <Environment preset="night" />
       {/* Wrapping Dots into Suspense to prevent Blink when Troika/Font is loaded */}
       {/* <Suspense>
         <Dots position-y={1.75} position-x={-0.02} />
