@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const backendUrl = "http://localhost:3000";
+// const backendUrl = "http://localhost:3000";
+const backendUrl = "http://192.168.26.221:3000";
 
 const ChatContext = createContext();
 
@@ -21,7 +22,7 @@ export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState();
   const [loading, setLoading] = useState(false);
-  const [cameraZoomed, setCameraZoomed] = useState(true);
+  const [cameraZoomed, setCameraZoomed] = useState(false);
   const onMessagePlayed = () => {
     setMessages((messages) => messages.slice(1));
   };

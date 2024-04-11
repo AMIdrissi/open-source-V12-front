@@ -113,7 +113,7 @@ export function Avatar(props) {
     "/models/65a6c1038d5515a608389f93.glb"
   );
 
-  const { message, onMessagePlayed, chat } = useChat();
+  const { message, onMessagePlayed,cameraZoomed, chat } = useChat();
 
   const [lipsync, setLipsync] = useState();
 
@@ -315,7 +315,7 @@ export function Avatar(props) {
       <pointLight intensity={1} position={[0,3,-1]} color={0xccfcff} />
       <pointLight intensity={0.3} position={[0,4,3]} color={0xccfcff} />
       <pointLight intensity={0.1} position={[0,-1,2]} color={0x99f8ff} />
-      <group {...props} dispose={null} ref={group}>
+      <group {...props} dispose={null} ref={group} rotation={cameraZoomed ? [0,0,-0.07] : [0,0,0]}>
         <primitive object={nodes.Hips} />
         <skinnedMesh
           name="EyeLeft"
