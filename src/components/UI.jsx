@@ -67,7 +67,8 @@ export const UI = ({ hidden, ...props }) => {
       <div className="fixed top-0 left-0 right-0 bottom-0 z-10 pointer-events-none flex justify-between p-4 flex-col">
         <div className="self-start backdrop-blur-md bg-white bg-opacity-50 p-4 rounded-lg">
           <button
-            className="font-black text-5xl cursor-pointer z-10"
+            className="pointer-events-auto font-black text-5xl cursor-pointer z-10"
+            onClick={() => setCameraZoomed(!cameraZoomed)}
           >
             OScar
           </button>
