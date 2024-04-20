@@ -1,10 +1,11 @@
 import { useChat } from "../hooks/useChat";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 export const UI = ({ hidden, ...props }) => {
   const input = useRef();
   const videoRef = useRef();
   const videoRef2 = useRef();
+  const [trig1, SetTrig1] = useState({conf0:false,conf1:false});
   const { chat, loading, cameraZoomed, setCameraZoomed, message } = useChat();
 
   const sendMessage = () => {
@@ -51,7 +52,7 @@ export const UI = ({ hidden, ...props }) => {
           className={`absolute top-0 left-0 object-cover w-full h-full , opacity-[1] ${
             cameraZoomed ? "hidden" : "block"
           }`}
-          src="src/assets/vecteezy_a-video-that-expresses-the-concept-of-digital-with-computer_14268937.mov" // Replace with the path to your video file
+          src="src/assets/bg_0_1_v1.mp4" // Replace with the path to your video file
           muted
           loop
           autoPlay
@@ -61,7 +62,7 @@ export const UI = ({ hidden, ...props }) => {
           className={`absolute top-0 left-0 object-cover w-full h-full , opacity-[1] ${
             cameraZoomed ? "block" : "hidden"
           }`}
-          src="src/assets/vid1.mp4" // Replace with the path to your video file
+          src={`src/assets/CONF_Mahfoudi.mp4`} // Replace with the path to your video file
         />
       </div>
       <div className="fixed top-0 left-0 right-0 bottom-0 z-10 pointer-events-none flex justify-between p-4 flex-col">
@@ -81,7 +82,20 @@ export const UI = ({ hidden, ...props }) => {
             ref={input}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
+                if (trig1.conf1) {
+                  setCameraZoomed(!cameraZoomed)
+                }
                 sendMessage();
+              }
+              // if (e.currentTarget === "1") {
+
+              // }
+            }}
+            onKeyUp={(e) => {
+              if (e.target.value === "1") {
+                SetTrig1({...trig1,conf1:true})
+              }else{
+                SetTrig1(false)
               }
             }}
           />
