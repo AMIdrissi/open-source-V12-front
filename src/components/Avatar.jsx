@@ -113,9 +113,11 @@ export function Avatar(props) {
     "/models/65a6c1038d5515a608389f93.glb"
   );
 
-  const { message, onMessagePlayed,cameraZoomed, chat } = useChat();
+  const { message, onMessagePlayed, cameraZoomed, chat } = useChat();
 
   const [lipsync, setLipsync] = useState();
+
+  const [stopVid, setStopeVid] = useState(false);
 
   useEffect(() => {
     console.log(message);
@@ -127,15 +129,28 @@ export function Avatar(props) {
     setFacialExpression(message.facialExpression);
     setLipsync(message.lipsync);
     const audio = new Audio("data:audio/mp3;base64," + message.audio);
-    audio.play();
-    setAudio(audio);
-    audio.onended = onMessagePlayed;
-  }, [message]);
+    if (stopVid) {
+      audio.pause();
+      audio.currentTime = 0;
+      console.log(audio.duration)
+      audio.currentTime = 2;
+      // audio.volume = 0;
+      setAudio("");
+    } else {
+      audio.volume = 1;
+      audio.play();
+      setAudio(audio);
+      audio.onended = onMessagePlayed;
+      console.log("ksdjhfgkjshdkhsdkjfhkjsdhfkj");
+    }
+  }, [message,stopVid]);
 
   const { animations } = useGLTF("/models/animations.glb");
   // const waving = useFBX("animations/Waving.fbx")
 
   const group = useRef();
+  const emergercyBtnRef = useRef();
+
   const { actions, mixer } = useAnimations(animations, group);
   const [animation, setAnimation] = useState(
     animations.find((a) => a.name === "Idle") ? "Idle" : animations[0].name // Check if Idle animation exists otherwise use first animation
@@ -182,7 +197,10 @@ export function Avatar(props) {
   const [facialExpression, setFacialExpression] = useState("");
   const [audio, setAudio] = useState();
 
-  useFrame(() => {
+  useFrame((state, delta) => {
+    emergercyBtnRef.current.rotation.x += 2 * delta;
+    emergercyBtnRef.current.rotation.y += delta;
+
     !setupMode &&
       Object.keys(nodes.EyeLeft.morphTargetDictionary).forEach((key) => {
         const mapping = facialExpressions[facialExpression];
@@ -312,11 +330,31 @@ export function Avatar(props) {
   return (
     <>
       {" "}
-      <ambientLight intensity={0.1}/>
-      <pointLight intensity={1} position={[0,3,-1]} color={0xccfcff} />
-      <pointLight intensity={0.3} position={[0,4,3]} color={0xccfcff} />
-      <pointLight intensity={0.1} position={[0,-1,2]} color={0x99f8ff} />
-      <group {...props} dispose={null} ref={group} rotation={cameraZoomed ? [0,0,-0.07] : [0,0,0]}>
+      <mesh
+        position={[0.6, 1.8, 0]}
+        ref={emergercyBtnRef}
+        onClick={() => {
+          setStopeVid(!stopVid);
+          audio.pause();
+        }}
+      >
+        <sphereGeometry args={[0.05, 10, 5]} />
+        <meshStandardMaterial
+          wireframe
+          color={0xcbb96b}
+          wireframeLinewidth={3}
+        />
+      </mesh>
+      <ambientLight intensity={0.1} />
+      <pointLight intensity={1} position={[0, 3, -1]} color={0xccfcff} />
+      <pointLight intensity={0.3} position={[0, 4, 3]} color={0xccfcff} />
+      <pointLight intensity={0.1} position={[0, -1, 2]} color={0x99f8ff} />
+      <group
+        {...props}
+        dispose={null}
+        ref={group}
+        rotation={cameraZoomed ? [0, 0, -0.07] : [0, 0, 0]}
+      >
         <primitive object={nodes.Hips} />
         <skinnedMesh
           name="EyeLeft"

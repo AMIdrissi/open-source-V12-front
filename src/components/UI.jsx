@@ -5,7 +5,23 @@ export const UI = ({ hidden, ...props }) => {
   const input = useRef();
   const videoRef = useRef();
   const videoRef2 = useRef();
-  const [trig1, SetTrig1] = useState({conf0:false,conf1:false});
+  const [vidUrl, setVidUrl] = useState("bg_0_1_v1.mp4");
+  const defaultVal = {
+    baif_brahim: false,
+    fadili_hassan: false,
+    kadili_abdelilah: false,
+    mahfoudi: false,
+    moussab_benious: false,
+    najem: false,
+  };
+  const [trig, setTrig] = useState({
+    baif_brahim: false,
+    fadili_hassan: false,
+    kadili_abdelilah: false,
+    mahfoudi: false,
+    moussab_benious: false,
+    najem: false,
+  });
   const { chat, loading, cameraZoomed, setCameraZoomed, message } = useChat();
 
   const sendMessage = () => {
@@ -32,6 +48,7 @@ export const UI = ({ hidden, ...props }) => {
     if (cameraZoomed) {
       videoRef2.current.load();
       videoRef2.current.play();
+      videoRef2.current.volume = 0.85;
     } else {
       videoRef2.current.pause();
       videoRef2.current.currentTime = 0;
@@ -62,7 +79,7 @@ export const UI = ({ hidden, ...props }) => {
           className={`absolute top-0 left-0 object-cover w-full h-full , opacity-[1] ${
             cameraZoomed ? "block" : "hidden"
           }`}
-          src={`src/assets/CONF_Mahfoudi.mp4`} // Replace with the path to your video file
+          src={`src/assets/${vidUrl}`} // Replace with the path to your video file
         />
       </div>
       <div className="fixed top-0 left-0 right-0 bottom-0 z-10 pointer-events-none flex justify-between p-4 flex-col">
@@ -75,15 +92,17 @@ export const UI = ({ hidden, ...props }) => {
           </button>
           {/* <p>Experimental</p> */}
         </div>
-        <div className="flex items-center gap-2 pointer-events-auto max-w-screen-sm w-full mx-auto">
+        <div className="flex items-center gap-2 pointer-events-auto max-w-screen-sm w-full mx-auto ">
           <input
+            id="inputComm"
             className="w-full placeholder:text-gray-800 placeholder:italic p-4 rounded-md bg-opacity-0 border-0  bg-white outline-none"
             // placeholder="Type a message..."
             ref={input}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                if (trig1.conf1) {
-                  setCameraZoomed(!cameraZoomed)
+                let hasVid = Object.values(trig).some((val) => val === true);
+                if (hasVid && !loading) {
+                  setCameraZoomed(true);
                 }
                 sendMessage();
               }
@@ -92,10 +111,47 @@ export const UI = ({ hidden, ...props }) => {
               // }
             }}
             onKeyUp={(e) => {
-              if (e.target.value === "1") {
-                SetTrig1({...trig1,conf1:true})
-              }else{
-                SetTrig1(false)
+              switch (e.target.value) {
+                case "1":
+                  setTrig(defaultVal);
+                  setTrig({ ...trig, mahfoudi: true });
+                  setVidUrl("CONF_Mahfoudi.mp4");
+                  setCameraZoomed(false);
+                  break;
+                case "2":
+                  setTrig(defaultVal);
+                  setTrig({ ...trig, kadili_abdelilah: true });
+                  setVidUrl("CONF_Kadili_Abdelilah.mp4");
+                  setCameraZoomed(false);
+                  break;
+                case "12":
+                  setTrig(defaultVal);
+                  setTrig({ ...trig, fadili_hassan: true });
+                  setVidUrl("CONF_Fadili_Hassan.mp4");
+                  setCameraZoomed(false);
+                  break;
+                case "11":
+                  setTrig(defaultVal);
+                  setTrig({ ...trig, najem: true });
+                  setVidUrl("CONF_Najem.mp4");
+                  setCameraZoomed(false);
+                  break;
+                case "5":
+                  setTrig(defaultVal);
+                  setTrig({ ...trig, moussab_benious: true });
+                  setVidUrl("CONF_Moussab_Benious.mp4");
+                  setCameraZoomed(false);
+                  break;
+                case "8":
+                  setTrig(defaultVal);
+                  setTrig({ ...trig, baif_brahim: true });
+                  setVidUrl("CONF_Brahim_Baif.mp4");
+                  setCameraZoomed(false);
+                  break;
+
+                default:
+                  setTrig(defaultVal);
+                  break;
               }
             }}
           />

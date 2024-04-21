@@ -47,7 +47,8 @@ export const Experience = () => {
 
   useEffect(() => {
     if (cameraZoomed) {
-      cameraControls.current.setLookAt(0, 1.5, 28.5, -12, 7.5, 0, true);
+      cameraControls.current.setLookAt(0, 1.5, 28.5, -12, 7.3, 0, true);
+      // cameraControls.current.setLookAt(0, 1.5, 28.5, -8.5, 7.3, 0, true); // for 4:3 screen
     } else {
       cameraControls.current.setLookAt(0, 1.5, 1.5, 0, 1.5, 0, true);
     }
