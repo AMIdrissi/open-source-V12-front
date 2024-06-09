@@ -83,7 +83,7 @@ export const UI = ({ hidden, ...props }) => {
         />
       </div>
       <div className="fixed top-0 left-0 right-0 bottom-0 z-10 pointer-events-none flex justify-between p-4 flex-col">
-        <div className="self-start backdrop-blur-md bg-white bg-opacity-50 p-4 rounded-lg">
+        <div className="mx-6 self-start backdrop-blur-md bg-white bg-opacity-50 p-4 rounded-lg">
           <button
             className="pointer-events-auto font-black text-5xl cursor-pointer z-10"
             onClick={() => setCameraZoomed(!cameraZoomed)}
@@ -95,14 +95,16 @@ export const UI = ({ hidden, ...props }) => {
         <div className="flex items-center gap-2 pointer-events-auto max-w-screen-sm w-full mx-auto ">
           <input
             id="inputComm"
-            className="w-full placeholder:text-gray-800 placeholder:italic p-4 rounded-md bg-opacity-0 border-0  bg-white outline-none"
+            className="w-full translate-y-3 placeholder:text-gray-800 placeholder:italic p-4 rounded-md bg-opacity-0 border-0  bg-white outline-none"
             // placeholder="Type a message..."
             ref={input}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 let hasVid = Object.values(trig).some((val) => val === true);
                 if (hasVid && !loading) {
-                  setCameraZoomed(true);
+                  setTimeout(() => {
+                    setCameraZoomed(true);
+                  }, 5000);
                 }
                 sendMessage();
               }
@@ -124,25 +126,25 @@ export const UI = ({ hidden, ...props }) => {
                   setVidUrl("CONF_Kadili_Abdelilah.mp4");
                   setCameraZoomed(false);
                   break;
-                case "12":
+                case "10":
                   setTrig(defaultVal);
                   setTrig({ ...trig, fadili_hassan: true });
                   setVidUrl("CONF_Fadili_Hassan.mp4");
                   setCameraZoomed(false);
                   break;
-                case "11":
+                case "9":
                   setTrig(defaultVal);
                   setTrig({ ...trig, najem: true });
                   setVidUrl("CONF_Najem.mp4");
                   setCameraZoomed(false);
                   break;
-                case "5":
+                case "6":
                   setTrig(defaultVal);
                   setTrig({ ...trig, moussab_benious: true });
                   setVidUrl("CONF_Moussab_Benious.mp4");
                   setCameraZoomed(false);
                   break;
-                case "8":
+                case "7":
                   setTrig(defaultVal);
                   setTrig({ ...trig, baif_brahim: true });
                   setVidUrl("CONF_Brahim_Baif.mp4");
